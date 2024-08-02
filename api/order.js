@@ -91,4 +91,5 @@ app.post('/order', upload.single('design'), (req, res) => {
     });
 });
 
-module.exports.handler = serverless(app);
+// Correctly exporting the serverless app
+module.exports = serverless(app);
