@@ -1,0 +1,63 @@
+.icon {
+
+    width: 10vw;
+    max-width: 200px;
+    margin-top: 100px;
+    border-radius: 5%;
+    border: 5px solid white;
+
+}
+
+.background {
+    background: radial-gradient(circle, #4120e8, #5c0d91);
+    /* Make sure it fills the entire viewport */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    position: absolute; /* Positioning to cover full screen */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    margin-top: 0;
+
+    overflow-y: auto; /* Enable vertical scrolling */
+
+    display: flex; /* Flexbox to center content */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align children to the top */
+    color: whitesmoke; /* Text color */
+}
+
+h1 {
+    margin-top: 25px;
+}
+
+.line {
+    border: none; /* Remove default border */
+    height: 1px; /* Set height */
+    background-color: #ccc; /* Set color of the line */
+    margin: 0 auto 20px auto; /* Space above and below the line */
+    width: 45vw; /* Full width of the parent */
+}
+
+a {
+    color: #acfcfb;
+}
+
+button {
+    background-color: #230469; /* Background color */
+    color: #fcfdff; /* Text color */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 20px; /* Font size */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+    font-family: 'DejaVu Sans Mono', monospace; /* Ensure consistency with form elements */
+    display: block;
+    margin: 0 auto 20px auto; /* Center button with auto margins */
+}
+
+button:hover {
+    background-color: #27093d; /* Darker background color on hover */
+    color: #fcfdff; /* Lighter text color on hover */
+}

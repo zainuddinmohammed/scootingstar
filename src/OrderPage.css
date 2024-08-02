@@ -1,0 +1,98 @@
+
+form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 80%; /* Adjusted to 100% */
+    max-width: 500px; /* You can keep this if you want a maximum limit */
+}
+
+.divider {
+    border: none; /* Remove default border */
+    height: 1px; /* Set height */
+    background-color: #ccc; /* Set color of the line */
+    margin: 0 auto 20px auto; /* Space above and below the line */
+    width: 100%; /* Full width of the parent */
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input,
+select {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    display: block; /* Ensure the input and select are block elements */
+    width: 100%; /* Make the input and select take up the full width of the form */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+select {
+    appearance: none; /* Remove default arrow icon on select element */
+    background-color: white; /* Set background color */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 4px; /* Rounded corners */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjMDAwIiBkPSJNMyA1bDUgNUwxNCA1eiIvPgo8L3N2Zz4='); /* Custom arrow icon */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: right 10px center; /* Position the arrow */
+    padding-right: 30px; /* Add space for the arrow */
+}
+
+select:focus {
+    border-color: #290552; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+.date-time-container {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 10px; /* Space between pairs */
+}
+
+button[type="button"] {
+    background-color: #7b19fa; /* Red background color */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    margin-left: 10px; /* Space from inputs */
+    cursor: pointer; /* Pointer cursor */
+    padding: 5px 10px; /* Padding for the button */
+}
+
+button[type="button"]:hover {
+    background-color: #6e16e0; /* Darker red on hover */
+}
+
+.date-time-container input {
+    flex: 1; /* Make the input take equal space */
+    margin-right: 5px; /* Add some space between the input and select */
+}
+
+.date-time-container select {
+    flex: 1; /* Make the select take equal space */
+}
+
+option {
+    background-color: white; /* Background color for options */
+    color: black; /* Text color for options */
+    padding: 10px; /* Padding for options */
+}
+
+/* Optional: style option on hover (if supported by browser) */
+option:hover {
+    background-color: #f0f0f0; /* Background color on hover */
+}
+
+textarea {
+    width: 100%; /* Ensure it takes full width */
+    padding: 10px; /* Add some padding */
+    border-radius: 5px; /* Optional: rounded corners */
+    border: 1px solid #ccc; /* Border styling */
+    box-sizing: border-box; /* Include padding and border in width */
+    margin-bottom: 20px;
+}
+

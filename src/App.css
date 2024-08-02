@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
+/* App.css */
+.nav-bar {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Center items vertically */
+  background: linear-gradient(to right, #3b0c5c, #20188f, #310469); /* Set your desired color here */
+  z-index: 2;
+  position: relative; /* Allow z-index to take effect */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-bar ul {
+  list-style-type: none; /* Remove bullet points */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Display links in a row */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav-bar li {
+  margin-right: 0; /* Space between links */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.nav-bar a {
+  background-color: #360F68; /* Background color (white with some transparency) */
+  padding: 18px; /* Space around the text */
+  color: white; /* Change link color */
+  text-decoration: none; /* Remove underline */
+  font-size: 25px;
+  font-family: 'DejaVu Sans Mono', monospace;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-bar a:hover {
+  background-color: #27093d;
+  color: white; /* Change link color */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-image {
+  max-height: 64px; /* Set a max width for the image */
+  width: auto; /* Maintain aspect ratio */
+  margin-right: 0;
 }
