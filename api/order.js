@@ -10,7 +10,7 @@ const app = express();
 
 // CORS options
 const corsOptions = {
-    origin: 'https://scootingstar-zainuddinmohammeds-projects.vercel.app',
+    origin: 'https://scootingstar.vercel.app',
     methods: 'POST',
     allowedHeaders: ['Content-Type'],
 };
@@ -20,9 +20,16 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Ensure uploads directory exists
+const fs = require('fs');
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+}
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, uploadsDir); // Use the uploads directory
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -48,6 +55,11 @@ transporter.verify((error) => {
 });
 
 app.post('/order', upload.single('design'), (req, res) => {
+    // Check for multer errors
+    if (req.fileValidationError) {
+        return res.status(400).send(req.fileValidationError);
+    }
+
     const {
         name, email, contactMethod, description, startDate, startTime, endDate, endTime, eventLocation, dateTimePairs, advertiseLocation, selection, details
     } = req.body;
@@ -92,4 +104,4 @@ app.post('/order', upload.single('design'), (req, res) => {
 });
 
 // Correctly exporting the serverless app
-module.exports = serverless(app);
+module.exports.handler = serverless(app);
