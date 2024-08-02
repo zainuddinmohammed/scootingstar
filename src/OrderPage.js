@@ -47,7 +47,9 @@ const OrderPage = () => {
             formData.append('design', design);
         }
 
-        fetch('http://localhost:3001/order', {
+        console.log('API URL:', process.env.REACT_APP_API_URL);
+
+        fetch(`${process.env.REACT_APP_API_URL}`, {
             method: 'POST',
             body: formData,
         }).then(() => {

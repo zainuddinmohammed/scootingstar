@@ -1,16 +1,22 @@
-require('dotenv').config();
 const express = require('express');
+const serverless = require('serverless-http');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
-const PORT = 3001;
 
-const cors = require('cors');
-app.use(cors());
+// CORS options
+const corsOptions = {
+    origin: 'https://scootingstar-zainuddinmohammeds-projects.vercel.app',
+    methods: 'POST',
+    allowedHeaders: ['Content-Type'],
+};
 
+// Use CORS with options
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -76,7 +82,7 @@ app.post('/order', upload.single('design'), (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log(error);
+            console.log('Error sending email:', error);
             return res.status(500).send({ message: 'Error sending email' });
         } else {
             console.log('Email sent: ' + info.response);
@@ -85,6 +91,4 @@ app.post('/order', upload.single('design'), (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+module.exports.handler = serverless(app);
