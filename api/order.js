@@ -3,14 +3,13 @@ const serverless = require('serverless-http');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const path = require('path');
 const cors = require('cors');
 
 const app = express();
 
 // CORS options
 const corsOptions = {
-    origin: 'https://scootingstar.vercel.app',
+    origin: 'https://scootingstar-zainuddinmohammeds-projects.vercel.app',
     methods: 'POST',
     allowedHeaders: ['Content-Type'],
 };
@@ -20,22 +19,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Ensure uploads directory exists
-const fs = require('fs');
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir);
-}
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadsDir); // Use the uploads directory
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    },
-});
-
+const storage = multer.memoryStorage(); // Use memory storage for serverless
 const upload = multer({ storage });
 
 const transporter = nodemailer.createTransport({
@@ -54,19 +38,14 @@ transporter.verify((error) => {
     }
 });
 
-app.post('/order', upload.single('design'), (req, res) => {
-    // Check for multer errors
-    if (req.fileValidationError) {
-        return res.status(400).send(req.fileValidationError);
-    }
-
+app.post('/api/order', upload.single('design'), (req, res) => {
     const {
         name, email, contactMethod, description, startDate, startTime, endDate, endTime, eventLocation, dateTimePairs, advertiseLocation, selection, details
     } = req.body;
-    const design = req.file ? req.file.path : null;
+    const design = req.file ? req.file.buffer : null;
 
     console.log('Order received:', {
-        name, email, contactMethod, description, startDate, startTime, endDate, endTime, eventLocation, dateTimePairs, advertiseLocation, selection, design, details
+        name, email, contactMethod, description, startDate, startTime, endDate, endTime, eventLocation, dateTimePairs, advertiseLocation, selection, details
     });
 
     const mailOptions = {
@@ -86,10 +65,10 @@ app.post('/order', upload.single('design'), (req, res) => {
             Advertising Dates: ${JSON.stringify(dateTimePairs)}
             Advertising Locations: ${advertiseLocation}
             Poster Type: ${selection}
-            Poster Design: ${design ? path.basename(design) : 'N/A'}
+            Poster Design: ${design ? 'attached' : 'N/A'}
             Extra Details: ${details}
         `,
-        attachments: design ? [{ filename: path.basename(design), path: design }] : [],
+        attachments: design ? [{ filename: 'design.png', content: design }] : [],
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -103,5 +82,6 @@ app.post('/order', upload.single('design'), (req, res) => {
     });
 });
 
-// Correctly exporting the serverless app
+// Export the serverless app
+module.exports = app;
 module.exports.handler = serverless(app);

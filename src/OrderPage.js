@@ -63,7 +63,20 @@ const OrderPage = () => {
     };
 
     const handleFileChange = (e) => {
-        setDesign(e.target.files[0]); // Updated to store the file object
+        const file = e.target.files[0];
+        const allowedTypes = ['image/jpeg', 'image/png'];
+
+        if (file) {
+            if (!allowedTypes.includes(file.type)) {
+                alert('Only JPG and PNG images are allowed.');
+                e.target.value = null; // Clear the file input
+                return;
+            }
+
+            // Process the file
+            console.log('File is within the size limit and is an allowed type', file);
+            setDesign(e.target.files[0]);
+        }
     };
 
     const handleDescriptionChange = (e) => {
@@ -203,9 +216,18 @@ const OrderPage = () => {
                             onChange={(e) => handleTimeChange(index, e.target.value)}
                         >
                             <option>Any time</option>
-                            <option>11:15 AM - 11:30 AM</option>
-                            <option>12:45 PM - 1:00 PM</option>
-                            <option>2:15 PM - 2:30 PM</option>
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 PM</option>
+                            <option>12:00 PM - 1:00 PM</option>
+                            <option>1:00 PM - 2:00 PM</option>
+                            <option>2:00 PM - 3:00 PM</option>
+                            <option>3:00 PM - 4:00 PM</option>
+                            <option>4:00 PM - 5:00 PM</option>
+                            <option>5:00 PM - 6:00 PM</option>
+                            <option>6:00 PM - 7:00 PM</option>
+                            <option>7:00 PM - 8:00 PM</option>
                         </select>
                         <button type="button" onClick={() => removeDateTimePair(index)}>X</button>
                     </div>
@@ -235,13 +257,13 @@ const OrderPage = () => {
                 </select>
 
                 <label>
-                    Upload poster design{selection === 'Poster (You design)' ? '*' : ''}
+                    Upload poster design {selection === 'Poster (You design)' ? '*' : ''}
                 </label>
                 <input
                     type="file"
                     name="design"
                     required={selection === 'Poster (You design)'}
-                    accept="image/*"
+                    accept=".jpg, .jpeg, .png"
                     onChange={handleFileChange}
                 />
 
